@@ -2,6 +2,8 @@ class ShutterCard extends HTMLElement {
   set hass(hass) {
     const _this = this;
     const entities = this.config.entities;
+    const show_name = this.config.show_name ? this.config.show_name : true;
+    const show_stop = this.config.show_stop ? this.config.show_stop : true;
     
     //Init the card
     if (!this.card) {
@@ -53,7 +55,7 @@ class ShutterCard extends HTMLElement {
           <div class="sc-shutter-middle" style="flex-direction: ` + (buttonsPosition == 'right' ? 'row-reverse': 'row') + `;">
             <div class="sc-shutter-buttons">
               <ha-icon-button icon="mdi:arrow-up" class="sc-shutter-button" data-command="up"></ha-icon-button><br>
-              <ha-icon-button icon="mdi:stop" class="sc-shutter-button" data-command="stop"></ha-icon-button><br>
+              <ha-icon-button icon="mdi:stop" class="sc-shutter-button" data-command="stop" ` + (!show_stop ? 'style="display:none;"' : '') + `></ha-icon-button><br>
               <ha-icon-button icon="mdi:arrow-down" class="sc-shutter-button" data-command="down"></ha-icon-button>
             </div>
             <div class="sc-shutter-selector">
@@ -207,9 +209,11 @@ class ShutterCard extends HTMLElement {
       const friendlyName = (entity && entity.name) ? entity.name : state ? state.attributes.friendly_name : 'unknown';
       const currentPosition = state ? state.attributes.current_position : 'unknown';
       
-      shutter.querySelectorAll('.sc-shutter-label').forEach(function(shutterLabel) {
-          shutterLabel.innerHTML = friendlyName;
-      })
+      if (show_name) {
+        shutter.querySelectorAll('.sc-shutter-label').forEach(function(shutterLabel) {
+            shutterLabel.innerHTML = friendlyName;
+        });
+      }
       
       if (!_this.isUpdating) {
         shutter.querySelectorAll('.sc-shutter-position').forEach(function (shutterPosition) {
