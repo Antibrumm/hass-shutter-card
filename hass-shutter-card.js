@@ -2,6 +2,7 @@ class ShutterCard extends HTMLElement {
   set hass(hass) {
     const _this = this;
     const entities = this.config.entities;
+    console.log(JSON.stringify(this.config);
     const show_name = this.config.show_name ? this.config.show_name : true;
     const show_stop = this.config.show_stop ? this.config.show_stop : true;
     
