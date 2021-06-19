@@ -207,15 +207,8 @@ class ShutterCard extends HTMLElement {
       const picker = shutter.querySelector('.sc-shutter-selector-picker');
         
       const state = hass.states[entityId];
-      const friendlyName = (entity && entity.name) ? entity.name : state ? state.attributes.friendly_name : 'unknown';
       const currentPosition = state ? state.attributes.current_position : 'unknown';
-      
-      if (show_name) {
-        shutter.querySelectorAll('.sc-shutter-label').forEach(function(shutterLabel) {
-            shutterLabel.innerHTML = friendlyName;
-        });
-      }
-      
+ 
       if (!_this.isUpdating) {
         shutter.querySelectorAll('.sc-shutter-position').forEach(function (shutterPosition) {
           shutterPosition.innerHTML = currentPosition + '%';
