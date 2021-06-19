@@ -267,6 +267,9 @@ class ShutterCard extends HTMLElement {
     if (!config.entities) {
       throw new Error('You need to define entities');
     }
+    if (!config.show_name) {
+      throw new Error('You need to define show_name');
+    }   
     
     this.config = config;
     this.maxPosition = 137;
